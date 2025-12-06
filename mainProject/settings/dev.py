@@ -1,0 +1,30 @@
+from .common import *
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+INSTALLED_APPS.extend([
+    'debug_toolbar',
+    'silk',
+])
+
+MIDDLEWARE.insert(2, "debug_toolbar.middleware.DebugToolbarMiddleware")
+MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 2525
+DEFAULT_FROM_EMAIL= 'from@email.com'
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda reqest: True
+}

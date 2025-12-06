@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+pillow = "*"
+django-allauth = "*"
+django-htmx = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
+drf-yasg = "*"
+djoser = "*"
+django-cors-headers = "*"
+social-auth-app-django = "*"
+django-cleanup = "*"
+celery = "*"
+redis = "*"
+flower = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
+django-redis = "*"
+
+[dev-packages]
+pytest = "*"
+pytest-django = "*"
+pytest-watch = "*"
+django-debug-toolbar = "*"
+locust = "*"
+django-silk = "*"
+
+[requires]
+python_version = "3.14"

@@ -1,0 +1,61 @@
+services:
+  # --- PostgreSQL Service ---
+  db:
+    image: postgres:alpine
+    container_name: postgres_db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - app_network
+
+  # --- Redis Service ---
+  redis:
+    image: redis:7.2-alpine
+    container_name: local-redis
+    # Map port 6379 on your host machine to port 6379 in the container
+    ports:
+      - "6379:6379"
+    # Using the custom config file as requested
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    restart: always
+    networks:
+      - app_network
+
+  # --- SMTP4Dev Service ---
+  smtp4dev:
+    image: rnwood/smtp4dev
+    container_name: smtp4dev
+    restart: unless-stopped
+    ports:
+      # Web UI
+      - "5000:80"
+      # SMTP Server
+      - "2525:25"
+      # POP3 Server
+      - "110:110"
+    networks:
+      - app_network
+
+# Define volumes for persistent storage
+volumes:
+  postgres_data:
+  redis_data:
+    driver: local
+
+# Define a shared network
+networks:
+  app_network:
+    driver: bridge
