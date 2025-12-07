@@ -17,8 +17,9 @@
             <div class="flex items-center rounded-xl px-2 py-2">
                 <form id="chat_message_form" class="w-full"
                     hx-post="{% url 'home' %}"
-                    hx-targe="#chat_messages"
-                    hx-swap="beforeend">
+                    hx-target="#chat_messages"
+                    hx-swap="beforeend"
+                    _="on htmx:afterRequest reset() me">
                     {% csrf_token %}
                     {{form}}
                 </form>

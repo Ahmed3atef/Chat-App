@@ -1,1 +1,14 @@
-{% include "chat/chat_message.html" %}
+<div class="fade-in-up">
+    {% include "chat/chat_message.html" %}
+</div>
+
+<style>
+    @keyframes fadeInAndUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0px); }
+    }
+    #chat_messages li:last-child { /* Target the last li within chat_messages for the animation */
+        animation: fadeInAndUp 0.6s ease;
+    }
+</style>
+
