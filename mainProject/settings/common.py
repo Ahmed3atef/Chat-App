@@ -85,10 +85,20 @@ TEMPLATES = [
 # WSGI_APPLICATION = 'mainProject.wsgi.application'
 ASGI_APPLICATION = 'mainProject.asgi.application'
 
+# CHANNEL_LAYERS = {
+#     'default':{
+#         "BACKEND":"channels.layers.InMemoryChannelLayer",
+#     }
+# }
+
+# setup redis to work as cash server on local host
 CHANNEL_LAYERS = {
-    'default':{
-        "BACKEND":"channels.layers.InMemoryChannelLayer",
-    }
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }
 
 # Database
