@@ -23,8 +23,6 @@ class Index(View):
 
     @method_decorator(login_required)
     def post(self, request):
-        chat_messages = self.chat_group.chat_messages.prefetch_related(
-            "author__profile").all()[:30]
         form = ChatmessageCreateForm(request.POST)
         if form.is_valid:
             message = form.save(commit=False)

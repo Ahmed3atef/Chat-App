@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'users.apps.UsersConfig',
 ]
 
+INSTALLED_APPS.insert(0, 'daphne')
 INSTALLED_APPS += EXTERNAL_APPS + LOCAL_APPS
 
 AUTH_USER_MODEL = 'core.User'
@@ -81,8 +82,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mainProject.wsgi.application'
+# WSGI_APPLICATION = 'mainProject.wsgi.application'
+ASGI_APPLICATION = 'mainProject.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default':{
+        "BACKEND":"channels.layers.InMemoryChannelLayer",
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases

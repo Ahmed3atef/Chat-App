@@ -24,6 +24,7 @@ flower = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
 django-redis = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 pytest = "*"
