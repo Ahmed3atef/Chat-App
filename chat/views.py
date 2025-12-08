@@ -32,7 +32,6 @@ class ChatView(LoginRequiredMixin,View):
                     messages.warning(request, 'You need to verify your email to join the chat!')
                     return redirect('profile-settings')
         context = {
-            "PROJECT_TITLE": "Chat APP",
             "chat_messages": chat_messages,
             "form": form,
             "other_user": other_user,
