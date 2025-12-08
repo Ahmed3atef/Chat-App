@@ -2,6 +2,8 @@
 
 This is a real-time chat application built with Django, Django Channels, and Redis. It supports private and group chats, user authentication, and file sharing.
 
+![chat-app demo](./chat-app.gif)
+
 ## Features
 
 -   Real-time private and group messaging
