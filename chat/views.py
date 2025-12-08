@@ -1,11 +1,13 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import get_user_model
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ChatRoomEditForm, ChatmessageCreateForm, NewGroupForm
-from .models import ChatGroup
+from .models import ChatGroup, GroupMessage
 from django.contrib import messages
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 # from .tasks import notify_customers
 
 
@@ -155,7 +157,29 @@ class ChatroomLeave(LoginRequiredMixin, View):
         return redirect('home')
 
 
+class ChatFileUpload(LoginRequiredMixin, View):
+    def post(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
 
+        if request.htmx and request.FILES:
+            file = request.FILES['file']
+            message = GroupMessage.objects.create(
+                file=file,
+                author=request.user,
+                group=chat_group,
+            )
+
+            # Channel Layer Logic
+            channel_layer = get_channel_layer()
+            event = {
+                'type': 'message_handler',
+                'message_id': message.id,
+            }
+            async_to_sync(channel_layer.group_send)(
+                chatroom_name, event
+            )
+
+        return HttpResponse()
 
 # def send_emails(request):
 #     notify_customers.delay('Hello World!')

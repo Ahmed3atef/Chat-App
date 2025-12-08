@@ -45,14 +45,14 @@ class ChatroomConsumer(WebsocketConsumer):
             group=self.chatroom
         )
         event = {
-            'type': 'messsage_handler',
+            'type': 'message_handler',
             'message_id': message.id,
         }
         async_to_sync(self.channel_layer.group_send)(
             self.chatroom_name, event
         )
     
-    def messsage_handler(self, event):
+    def message_handler(self, event):
         message_id = event['message_id']
         message = GroupMessage.objects.get(id=message_id)
         context = {
