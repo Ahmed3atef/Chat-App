@@ -1,3 +1,4 @@
+from sys import maxsize
 from django.db import models
 from django.conf import settings
 import shortuuid
@@ -8,6 +9,8 @@ User = settings.AUTH_USER_MODEL
 class ChatGroup(models.Model):
     group_name = models.CharField(max_length=128, unique=True, default=shortuuid.uuid)
     users_online = models.ManyToManyField(User, related_name="online_in_groups", blank=True)
+    groupchat_name = models.CharField(max_length=128, null=True, blank=True)
+    admin = models.ForeignKey(User, related_name='groupchats', blank=True, null=True, on_delete=models.SET_NULL)
     members = models.ManyToManyField(User, related_name='chat_groups', blank=True)
     is_private = models.BooleanField(default = False)
     def __str__(self):
