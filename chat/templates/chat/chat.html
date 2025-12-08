@@ -14,6 +14,9 @@
                     </div>
                 </a>
             {% endif %}
+            {% if chat_group.members.exists %}
+                <a class="p-2 bg-gray-200 hover:bg-blue-600 rounded-lg group text-right" href="{% url 'chatroom-leave' chat_group.group_name %}">Leave</a>
+            {% endif %}
         </div>
     {% endif %}
     <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
@@ -67,6 +70,7 @@
             </div>
         </div>
     </div>
+    
 </wrapper>  
 {% endblock content %}
 

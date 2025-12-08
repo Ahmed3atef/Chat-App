@@ -142,8 +142,22 @@ class ChatroomDelete(LoginRequiredMixin, View):
         messages.success(request, 'Chatroom deleted')
         return redirect('home')
         
-        
-        
+
+class ChatroomLeave(LoginRequiredMixin, View):
+    def get(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+        if request.user not in chat_group.members.all():
+            raise Http404()
+        return render(request, 'chat/partials/modal_chat_leave.html')
+    def post(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+        chat_group.members.remove(request.user)
+        messages.success(request, 'You left the Chat')
+        return redirect('home')
+
+
+
+
 # def send_emails(request):
 #     notify_customers.delay('Hello World!')
 #     return redirect("home")
