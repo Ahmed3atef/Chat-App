@@ -5,10 +5,11 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ChatmessageCreateForm, NewGroupForm
 from .models import ChatGroup
+from django.contrib import messages
 # from .tasks import notify_customers
 
 
-class Index(LoginRequiredMixin,View):
+class ChatView(LoginRequiredMixin,View):
     def get(self, request, chatroom_name='public'):
         self.chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
         chat_messages = self.chat_group.chat_messages.prefetch_related( # type: ignore
@@ -22,13 +23,21 @@ class Index(LoginRequiredMixin,View):
                 if member != request.user:
                     other_user = member
                     break
-                
+        
+        if self.chat_group.groupchat_name:
+             if request.user not in self.chat_group.members.all():
+                if request.user.emailaddress_set.filter(verified=True).exists():
+                    self.chat_group.members.add(request.user)
+                else:
+                    messages.warning(request, 'You need to verify your email to join the chat!')
+                    return redirect('profile-settings')
         context = {
             "PROJECT_TITLE": "Chat APP",
             "chat_messages": chat_messages,
             "form": form,
             "other_user": other_user,
-            "chatroom_name": chatroom_name
+            "chatroom_name": chatroom_name,
+            "chat_group": self.chat_group,
         }
         return render(request, 'chat/chat.html', context)
 
