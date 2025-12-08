@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import get_user_model
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import ChatmessageCreateForm, NewGroupForm
+from .forms import ChatRoomEditForm, ChatmessageCreateForm, NewGroupForm
 from .models import ChatGroup
 from django.contrib import messages
 # from .tasks import notify_customers
@@ -102,6 +102,48 @@ class CreateGroupChat(LoginRequiredMixin,View):
             return render(request, 'chat/create_groupchat.html', context)
 
 
+class ChatroomEdit(LoginRequiredMixin, View):
+    def get(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+        if request.user != chat_group.admin:
+            raise Http404()
+        form = ChatRoomEditForm(instance=chat_group)
+        context = {
+                'form': form,
+                'chat_group': chat_group
+            }
+        return render(request, 'chat/chatroom_edit.html', context)
+    
+    def post(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+        form = ChatRoomEditForm(request.POST, instance=chat_group)
+        self.User = get_user_model()
+        if form.is_valid():
+            form.save()
+
+            remove_members = request.POST.getlist('remove_members')
+            
+            for member_id in remove_members:
+                member = self.User.objects.get(id=member_id)
+                chat_group.members.remove(member)
+
+            return redirect('chatroom', chatroom_name)
+        
+        
+class ChatroomDelete(LoginRequiredMixin, View):
+    def get(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+        if request.user != chat_group.admin:
+            raise Http404()
+        return render(request, 'chat/chatroom_delete.html', {'chat_group':chat_group})
+    def post(self, request, chatroom_name):
+        chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+        chat_group.delete()
+        messages.success(request, 'Chatroom deleted')
+        return redirect('home')
+        
+        
+        
 # def send_emails(request):
 #     notify_customers.delay('Hello World!')
 #     return redirect("home")
