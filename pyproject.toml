@@ -9,10 +9,12 @@ dependencies = [
     "channels>=4.3.2",
     "channels-redis>=4.3.0",
     "daphne>=4.2.1",
+    "dj-database-url>=3.0.1",
     "django>=6.0",
     "django-allauth>=65.13.1",
     "django-cleanup>=9.0.0",
     "django-cors-headers>=4.9.0",
+    "django-environ>=0.12.0",
     "django-htmx>=1.27.0",
     "django-redis>=6.0.0",
     "djangorestframework>=3.16.1",
@@ -22,8 +24,8 @@ dependencies = [
     "gunicorn>=23.0.0",
     "pillow>=12.0.0",
     "psycopg2-binary>=2.9.11",
-    "python-dotenv>=1.2.1",
     "redis>=7.1.0",
+    "shortuuid>=1.0.13",
     "social-auth-app-django>=5.6.0",
     "whitenoise>=6.11.0",
 ]
@@ -38,3 +40,10 @@ dev = [
     "pytest-django>=4.11.1",
     "pytest-watch>=4.2.0",
 ]
+
+[tool.setuptools.packages.find]
+# Explicitly list the Python packages (your Django apps + project folder)
+include = ["mainProject*", "chat*", "core*", "users*"]
+
+# Explicitly exclude the non-Python folders
+exclude = ["Docker", "media", "static", "templates", "staticfiles", "locustfiles", "node_modules"]

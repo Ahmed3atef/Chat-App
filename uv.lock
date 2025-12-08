@@ -249,10 +249,12 @@ dependencies = [
     { name = "channels" },
     { name = "channels-redis" },
     { name = "daphne" },
+    { name = "dj-database-url" },
     { name = "django" },
     { name = "django-allauth" },
     { name = "django-cleanup" },
     { name = "django-cors-headers" },
+    { name = "django-environ" },
     { name = "django-htmx" },
     { name = "django-redis" },
     { name = "djangorestframework" },
@@ -262,8 +264,8 @@ dependencies = [
     { name = "gunicorn" },
     { name = "pillow" },
     { name = "psycopg2-binary" },
-    { name = "python-dotenv" },
     { name = "redis" },
+    { name = "shortuuid" },
     { name = "social-auth-app-django" },
     { name = "whitenoise" },
 ]
@@ -285,10 +287,12 @@ requires-dist = [
     { name = "channels", specifier = ">=4.3.2" },
     { name = "channels-redis", specifier = ">=4.3.0" },
     { name = "daphne", specifier = ">=4.2.1" },
+    { name = "dj-database-url", specifier = ">=3.0.1" },
     { name = "django", specifier = ">=6.0" },
     { name = "django-allauth", specifier = ">=65.13.1" },
     { name = "django-cleanup", specifier = ">=9.0.0" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
+    { name = "django-environ", specifier = ">=0.12.0" },
     { name = "django-htmx", specifier = ">=1.27.0" },
     { name = "django-redis", specifier = ">=6.0.0" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
@@ -298,8 +302,8 @@ requires-dist = [
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "pillow", specifier = ">=12.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.11" },
-    { name = "python-dotenv", specifier = ">=1.2.1" },
     { name = "redis", specifier = ">=7.1.0" },
+    { name = "shortuuid", specifier = ">=1.0.13" },
     { name = "social-auth-app-django", specifier = ">=5.6.0" },
     { name = "whitenoise", specifier = ">=6.11.0" },
 ]
@@ -471,6 +475,18 @@ wheels = [
 ]
 
 [[package]]
+name = "dj-database-url"
+version = "3.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/75/05/2ec51009f4ce424877dbd8ad95868faec0c3494ed0ff1635f9ab53d9e0ee/dj_database_url-3.0.1.tar.gz", hash = "sha256:8994961efb888fc6bf8c41550870c91f6f7691ca751888ebaa71442b7f84eff8", size = 12556, upload-time = "2025-07-02T09:40:11.424Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/aa/5e/86a43c6fdaa41c12d58e4ff3ebbfd6b71a7cb0360a08614e3754ef2e9afb/dj_database_url-3.0.1-py3-none-any.whl", hash = "sha256:43950018e1eeea486bf11136384aec0fe55b29fe6fd8a44553231b85661d9383", size = 8808, upload-time = "2025-07-02T09:40:26.326Z" },
+]
+
+[[package]]
 name = "django"
 version = "6.0"
 source = { registry = "https://pypi.org/simple" }
@@ -530,6 +546,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c0/50/acae2dd379164f6f4c6b6b36fd48a4d21b02095a03f4df7c30a8d1f1a62c/django_debug_toolbar-6.1.0.tar.gz", hash = "sha256:e962ec350c9be8bdba918138e975a9cdb193f60ec396af2bb71b769e8e165519", size = 309141, upload-time = "2025-10-30T19:50:39.458Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6d/72/685c978af45ad08257e2c69687a873eda6b6531c79b6e6091794c41c5ff6/django_debug_toolbar-6.1.0-py3-none-any.whl", hash = "sha256:e214dea4494087e7cebdcea84223819c5eb97f9de3110a3665ad673f0ba98413", size = 269069, upload-time = "2025-10-30T19:50:37.71Z" },
+]
+
+[[package]]
+name = "django-environ"
+version = "0.12.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d6/04/65d2521842c42f4716225f20d8443a50804920606aec018188bbee30a6b0/django_environ-0.12.0.tar.gz", hash = "sha256:227dc891453dd5bde769c3449cf4a74b6f2ee8f7ab2361c93a07068f4179041a", size = 56804, upload-time = "2025-01-13T17:03:37.74Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/83/b3/0a3bec4ecbfee960f39b1842c2f91e4754251e0a6ed443db9fe3f666ba8f/django_environ-0.12.0-py2.py3-none-any.whl", hash = "sha256:92fb346a158abda07ffe6eb23135ce92843af06ecf8753f43adf9d2366dcc0ca", size = 19957, upload-time = "2025-01-13T17:03:32.918Z" },
 ]
 
 [[package]]
@@ -1255,15 +1280,6 @@ wheels = [
 ]
 
 [[package]]
-name = "python-dotenv"
-version = "1.2.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f0/26/19cadc79a718c5edbec86fd4919a6b6d3f681039a2f6d66d14be94e75fb9/python_dotenv-1.2.1.tar.gz", hash = "sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6", size = 44221, upload-time = "2025-10-26T15:12:10.434Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl", hash = "sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61", size = 21230, upload-time = "2025-10-26T15:12:09.109Z" },
-]
-
-[[package]]
 name = "python-engineio"
 version = "4.12.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1432,6 +1448,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/07/a5/dfc752b979067947261dbbf2543470c58efe735c3c1301dd870ef27830ee/service_identity-24.2.0.tar.gz", hash = "sha256:b8683ba13f0d39c6cd5d625d2c5f65421d6d707b013b375c355751557cbe8e09", size = 39245, upload-time = "2024-10-26T07:21:57.736Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/08/2c/ca6dd598b384bc1ce581e24aaae0f2bed4ccac57749d5c3befbb5e742081/service_identity-24.2.0-py3-none-any.whl", hash = "sha256:6b047fbd8a84fd0bb0d55ebce4031e400562b9196e1e0d3e0fe2b8a59f6d4a85", size = 11364, upload-time = "2024-10-26T07:21:56.302Z" },
+]
+
+[[package]]
+name = "shortuuid"
+version = "1.0.13"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8c/e2/bcf761f3bff95856203f9559baf3741c416071dd200c0fc19fad7f078f86/shortuuid-1.0.13.tar.gz", hash = "sha256:3bb9cf07f606260584b1df46399c0b87dd84773e7b25912b7e391e30797c5e72", size = 9662, upload-time = "2024-03-11T20:11:06.879Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/44/21d6bf170bf40b41396480d8d49ad640bca3f2b02139cd52aa1e272830a5/shortuuid-1.0.13-py3-none-any.whl", hash = "sha256:a482a497300b49b4953e15108a7913244e1bb0d41f9d332f5e9925dba33a3c5a", size = 10529, upload-time = "2024-03-11T20:11:04.807Z" },
 ]
 
 [[package]]
