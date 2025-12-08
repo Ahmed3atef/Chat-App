@@ -110,6 +110,10 @@
     {% block layout %}
     {% endblock layout %}
 
+    {% if request.user.is_authenticated %}
+    <footer hx-ext="ws" ws-connect="/ws/online-status/"></footer>
+    {% endif %}
+    
     {% block javascript %}
     {% endblock%}
 

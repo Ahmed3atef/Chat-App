@@ -120,23 +120,22 @@ class OnlineStatusConsumer(WebsocketConsumer):
 
     def online_status_handler(self, event):
         online_users = self.group.users_online.exclude(id=self.user.id)
-        # public_chat_users = ChatGroup.objects.get(group_name='public-chat').users_online.exclude(id=self.user.id)
+        public_chat_users = ChatGroup.objects.get(group_name='public').users_online.exclude(id=self.user.id)
 
-        # my_chats = self.user.chat_groups.all()
-        # private_chats_with_users = [chat for chat in my_chats.filter(is_private=True) if chat.users_online.exclude(id=self.user.id)]
-        # group_chats_with_users = [chat for chat in my_chats.filter(
-        #     groupchat_name__isnull=False) if chat.users_online.exclude(id=self.user.id)]
+        my_chats = self.user.chat_groups.all()
+        private_chats_with_users = [chat for chat in my_chats.filter(is_private=True) if chat.users_online.exclude(id=self.user.id)]
+        group_chats_with_users = [chat for chat in my_chats.filter(groupchat_name__isnull=False) if chat.users_online.exclude(id=self.user.id)]
 
-        # if public_chat_users or private_chats_with_users or group_chats_with_users:
-        #     online_in_chats = True
-        # else:
-        #     online_in_chats = False
+        if public_chat_users or private_chats_with_users or group_chats_with_users:
+            online_in_chats = True
+        else:
+            online_in_chats = False
 
         context = {
             'online_users': online_users,
-            # 'online_in_chats': online_in_chats,
-            # 'public_chat_users': public_chat_users,
-            # 'user': self.user
+            'online_in_chats': online_in_chats,
+            'public_chat_users': public_chat_users,
+            'user': self.user
         }
         html = render_to_string("chat/partials/online_status.html", context=context)
         self.send(text_data=html)
