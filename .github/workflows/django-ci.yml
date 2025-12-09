@@ -17,7 +17,7 @@ jobs:
       DJANGO_SETTINGS_MODULE: mainProject.settings.dev
       # dummy django key
       DJANGO_KEY: "*5uh+tjqin)b=t_qz1_8ak2q00@o2x3z14gw@kj5lr*-b@(500"
-      DB_NAME: BOILERPLATE
+      DB_NAME: dummyDatabase
       DB_USER: admin
       DB_PASSWORD: admin
       DB_HOST: localhost
