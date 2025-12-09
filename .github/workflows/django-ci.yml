@@ -43,6 +43,13 @@ jobs:
       - name: Start Docker services (postgres, redis, mail)
         run: |
           python manage.py startdockerservers
+      
+      - name: Wait for Containers to be ready
+        run: |
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5432 -U admin -d dummyDatabase && break
+            sleep 1
+          done
 
       - name: Apply migrations
         run: |
