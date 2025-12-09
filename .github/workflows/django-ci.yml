@@ -38,7 +38,14 @@ jobs:
       - name: Ensure Docker & Compose
         run: |
           docker --version
-          docker compose version || sudo apt-get update && sudo apt-get install -y docker-compose-plugin
+          # v2 is already on GitHub runners
+          if docker compose version; then
+            echo "Compose v2 available"
+          else
+            # fallback: old v1 via pip if ever needed
+            python -m pip install --user docker-compose
+            ~/.local/bin/docker-compose version
+          fi
           
       - name: Install dependencies
         run: |
