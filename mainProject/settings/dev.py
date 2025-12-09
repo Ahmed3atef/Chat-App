@@ -18,7 +18,7 @@ MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
 
 # Disable toolbar during tests to satisfy debug_toolbar.E001
 DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+    "SHOW_TOOLBAR_CALLBACK": 'mainProject.debug.show_toolbar',
     "IS_RUNNING_TESTS": False,
 }
 
