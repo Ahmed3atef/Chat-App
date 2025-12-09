@@ -16,6 +16,12 @@ INSTALLED_APPS.extend([
 MIDDLEWARE.insert(2, "debug_toolbar.middleware.DebugToolbarMiddleware")
 MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
 
+# Disable toolbar during tests to satisfy debug_toolbar.E001
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+    "IS_RUNNING_TESTS": False,
+}
+
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'localhost'
