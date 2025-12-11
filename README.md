@@ -25,6 +25,7 @@ This is a real-time chat application built with Django, Django Channels, and Red
 To get this project up and running on your local machine, follow these steps:
 
 1.  **Clone the repository:**
+
     ```bash
     git clone https://github.com/Ahmed3atef/Chat-App.git
     cd Chat-App
@@ -32,6 +33,7 @@ To get this project up and running on your local machine, follow these steps:
 
 2.  **Set up Python environment and install dependencies:**
     This project uses `uv` for dependency management.
+
     ```bash
     uv venv
     uv sync
@@ -39,8 +41,9 @@ To get this project up and running on your local machine, follow these steps:
 
 3.  **Environment Variables:**
     Create a `.env` file in the root directory and configure your database and Django secret key:
+
     ```
-    DJANGO_KEY=your_secret_key
+    SECRET_KEY=your_secret_key
     DB_NAME=your_db_name
     DB_USER=your_db_user
     DB_PASSWORD=your_db_password
@@ -50,10 +53,13 @@ To get this project up and running on your local machine, follow these steps:
 
 4.  **Database Setup:**
     Ensure PostgreSQL and Redis servers are running. You can use Docker for this:
+
     ```bash
     python manage.py startdockerservers
     ```
+
     Run database migrations:
+
     ```bash
     python manage.py migrate
     ```
