@@ -10,6 +10,7 @@ ALLOWED_HOSTS = [
     "*.railway.app",
     "chat-app-6267.up.railway.app",
     "chat-app.railway.internal",
+    "localhost", "127.0.0.1", "[::1]", "*"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -98,13 +99,24 @@ STORAGES = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[{asctime}] {levelname} {message}',
+            'style': '{',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',  # <--- Change this from WARNING to INFO
+            'propagate': True,
+        },
     },
 }
