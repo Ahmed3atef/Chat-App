@@ -6,6 +6,8 @@ automat==25.4.16
 bidict==0.23.1
 billiard==4.2.4
 blinker==1.9.0
+boto3==1.35.76
+botocore==1.35.99
 brotli==1.2.0
 cbor2==5.7.1
 celery==5.6.0
@@ -34,6 +36,7 @@ django-environ==0.12.0
 django-htmx==1.27.0
 django-redis==6.0.0
 django-silk==5.4.3
+django-storages==1.14.4
 djangorestframework==3.16.1
 djangorestframework-simplejwt==5.5.1
 djoser==2.3.3
@@ -59,6 +62,7 @@ inflection==0.5.1
 iniconfig==2.3.0
 itsdangerous==2.2.0
 jinja2==3.1.6
+jmespath==1.0.1
 kombu==5.6.1
 locust==2.42.6
 locust-cloud==1.29.5
@@ -94,6 +98,7 @@ pyzmq==27.1.0
 redis==7.1.0
 requests==2.32.4
 requests-oauthlib==2.0.0
+s3transfer==0.10.4
 service-identity==24.2.0
 shortuuid==1.0.13
 simple-websocket==1.1.0
