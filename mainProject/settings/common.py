@@ -89,21 +89,6 @@ ASGI_APPLICATION = 'mainProject.asgi.application'
 #     }
 # }
 
-# setup redis to work as cash server on local host
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("localhost", 6379)],
-        },
-    },
-}
-
-# Database
-
-
-
-
 
 
 # Password validation
@@ -195,24 +180,4 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1)
 }
 
-# celery settings
-CELERY_BROKER_URL = 'redis://localhost:6379/1'
-CELERY_BEAT_SCHEDULE = {
-    'notify_customers': {
-        'task': 'home.tasks.notify_customers',
-        'schedule': 5,  # crontab(day_of_week=1, hour=7, minute=30),
-        'args': ['Hello World!']
-    }
-}
 
-# configure cache backend
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379/2",
-        "TIMEOUT": 10 * 60,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
