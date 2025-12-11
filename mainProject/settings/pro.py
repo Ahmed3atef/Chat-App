@@ -1,9 +1,22 @@
 from .common import *
+import dj_database_url
 import os
 
 DEBUG = False
 
-ALLOWED_HOSTS = []  # Add production domains here
+INSTALLED_APPS += ['storages']
+
+ALLOWED_HOSTS = [
+    "*.railway.app",
+    "chat-app-6267.up.railway.app",
+    "chat-app.railway.internal",
+    "localhost", "127.0.0.1", "[::1]", "*"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.railway.app",
+    "https://chat-app-6267.up.railway.app",
+]
 
 # Security settings
 CSRF_COOKIE_SECURE = True
@@ -13,7 +26,7 @@ SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-# Production email settings, loaded from environment variables
+# Production email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
@@ -26,13 +39,24 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[{asctime}] {levelname} {message}',
+            'style': '{',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',  # <--- Change this from WARNING to INFO
+            'propagate': True,
+        },
     },
 }

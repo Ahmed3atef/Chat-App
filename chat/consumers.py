@@ -123,6 +123,7 @@ class OnlineStatusConsumer(WebsocketConsumer):
         # This consumer doesn't need to receive messages
         pass
 
+
     def update_online_status(self):
         # Get all chat groups where the user is a member
         User = get_user_model()
