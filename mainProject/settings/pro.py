@@ -10,7 +10,6 @@ ALLOWED_HOSTS = [
     "*.railway.app",
     "chat-app-6267.up.railway.app",
     "chat-app.railway.internal",
-    "localhost", "127.0.0.1", "[::1]", "*"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
