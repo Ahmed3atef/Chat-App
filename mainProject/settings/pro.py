@@ -35,25 +35,29 @@ DATABASES = {
     )
 }
 
+redis_url = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": redis_url,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "DB": 1,
+        }
+    }
+}
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL'+'/2')],
+            "hosts": [{
+                'address': redis_url,
+                'db': 2,
+            }],
         },
     },
-}
-
-# configure cache backend
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('REDIS_URL'+'/1'),
-        "TIMEOUT": 10 * 60,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
 }
 
 
