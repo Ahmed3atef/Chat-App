@@ -16,6 +16,18 @@ INSTALLED_APPS.extend([
 MIDDLEWARE.insert(2, "debug_toolbar.middleware.DebugToolbarMiddleware")
 MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
 
+# Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dummyDatabase',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
 # Disable toolbar during tests to satisfy debug_toolbar.E001
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": 'mainProject.debug.show_toolbar',

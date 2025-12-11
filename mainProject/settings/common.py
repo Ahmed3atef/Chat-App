@@ -100,27 +100,11 @@ CHANNEL_LAYERS = {
 }
 
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dummyDatabase',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace with your local database URL
-#         default='postgresql://user:password@localhost:5432/mydatabase',
-#         conn_max_age=600,
-#         conn_health_checks=True,
-#     )
-# }
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
