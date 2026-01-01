@@ -19,6 +19,9 @@ STORAGES = {
     },
 }
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 # Automatically add Koyeb's public domain if present
