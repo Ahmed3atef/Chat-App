@@ -160,6 +160,10 @@ STORAGES = {
     },
 }
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 # Restframework settings
 
 REST_FRAMEWORK = {
