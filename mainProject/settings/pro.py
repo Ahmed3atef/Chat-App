@@ -5,11 +5,17 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 INSTALLED_APPS += ['storages']
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "*.koyeb.app",
-]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
+# Automatically add Koyeb's public domain if present
+koyeb_domain = os.environ.get("KOYEB_PUBLIC_DOMAIN")
+if koyeb_domain:
+    ALLOWED_HOSTS.append(koyeb_domain)
+
+# Pull any extra hosts from the custom ALLOWED_HOSTS variable
+env_hosts = os.environ.get("ALLOWED_HOSTS")
+if env_hosts:
+    ALLOWED_HOSTS.extend(env_hosts.split(","))
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.koyeb.app",
