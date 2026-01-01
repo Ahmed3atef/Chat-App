@@ -1,0 +1,21 @@
+.git
+.github
+.vscode
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.db.sqlite3
+# .env
+.venv
+env/
+venv/
+staticfiles/
+media/
+chat-app.gif
+Docker/
+locustfiles/
+pytest.ini
+pyproject.toml
+uv.lock
+README.md

@@ -8,13 +8,13 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-INSTALLED_APPS.extend([
-    'debug_toolbar',
-    'silk',
-])
+# INSTALLED_APPS.extend([
+#     'debug_toolbar',
+#     'silk',
+# ])
 
-MIDDLEWARE.insert(2, "debug_toolbar.middleware.DebugToolbarMiddleware")
-MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
+# MIDDLEWARE.insert(2, "debug_toolbar.middleware.DebugToolbarMiddleware")
+# MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
 
 # Database
 DATABASES = {
@@ -47,11 +47,19 @@ DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": lambda reqest: True
 }
 
+redis_url = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+# Clean up redis-cli prefix if present
+if "redis-cli" in redis_url:
+    import re
+    match = re.search(r'redis(s)?://\S+', redis_url)
+    if match:
+        redis_url = match.group(0)
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("localhost", 6379)],
+            "hosts": [redis_url],
         },
     },
 }
@@ -71,7 +79,7 @@ CHANNEL_LAYERS = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379/2",
+        "LOCATION": redis_url + "/2" if "://" in redis_url else "redis://localhost:6379/2",
         "TIMEOUT": 10 * 60,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",

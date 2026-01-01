@@ -141,8 +141,9 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = "/"
 
-ACCOUTN_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
 # Whitenoise configrations
 

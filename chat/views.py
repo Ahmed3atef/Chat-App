@@ -44,7 +44,7 @@ class ChatView(LoginRequiredMixin,View):
 
     def post(self, request):
         form = ChatmessageCreateForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             message = form.save(commit=False)
             message.author = request.user
             message.group = self.chat_group

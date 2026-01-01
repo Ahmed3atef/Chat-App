@@ -39,19 +39,7 @@ To get this project up and running on your local machine, follow these steps:
     uv sync
     ```
 
-3.  **Environment Variables:**
-    Create a `.env` file in the root directory and configure your database and Django secret key:
-
-    ```
-    SECRET_KEY=your_secret_key
-    DB_NAME=your_db_name
-    DB_USER=your_db_user
-    DB_PASSWORD=your_db_password
-    DB_HOST=localhost
-    DB_PORT=5432
-    ```
-
-4.  **Database Setup:**
+3.  **Database Setup:**
     Ensure PostgreSQL and Redis servers are running. You can use Docker for this:
 
     ```bash
@@ -64,7 +52,7 @@ To get this project up and running on your local machine, follow these steps:
     python manage.py migrate
     ```
 
-5.  **Create a Superuser (for admin access):**
+4.  **Create a Superuser (for admin access):**
     ```bash
     python manage.py createsuperuser
     ```
