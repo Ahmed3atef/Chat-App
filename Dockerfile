@@ -23,11 +23,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project
 COPY . /app/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+# Collect static files (moved to runtime to handle volume mounts)
+# RUN python manage.py collectstatic --noinput
 
 # Expose port
 EXPOSE 8000
 
 # Start server using Daphne for ASGI support (WebSockets)
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "mainProject.asgi:application"]
+# We run collectstatic before starting the server to ensure static files are present
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && daphne -b 0.0.0.0 -p 8000 mainProject.asgi:application"]
